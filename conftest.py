@@ -6,7 +6,7 @@ import allure
 import requests
 from selenium import webdriver
 from urls import Urls, UrlsAPI
-from api.api import Api
+from api import Api
 
 
 @pytest.fixture(params=['firefox', 'chrome'], autouse=True)

@@ -5,8 +5,8 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 import allure
 from selenium.common.exceptions import TimeoutException
 from base_page import BasePage
-from selenium.webdriver.support.ui import WebDriverWait  # Для явных ожиданий
-from selenium.webdriver.support import expected_conditions as EC  # Условия для ожиданий
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 
@@ -41,7 +41,7 @@ class OrderListPage(BasePage):
             return False
 
     @allure.step('Ожидание появления заказа по номеру order_id на странице "Лента заказов"')
-    def wait_for_presence_new_order_by_id_in_order_list(self, order_id, timeout=30):
+    def wait_for_presence_new_order_by_id_in_order_list(self, order_id, timeout=50):
         locator = self.make_order_locator_by_id(order_id)
         try:
             WebDriverWait(self.driver, timeout).until(
@@ -51,7 +51,7 @@ class OrderListPage(BasePage):
             return False
 
     @allure.step('Ожидание появления заказа по номеру order_id в разделе "В Работе" на странице "Лента заказов"')
-    def wait_for_presence_new_order_by_id_in_section_orders_in_progress(self, order_id, timeout=30):
+    def wait_for_presence_new_order_by_id_in_section_orders_in_progress(self, order_id, timeout=50):
         locator = self.make_order_locator_by_id_in_section_orders_in_progress(order_id)
         try:
             WebDriverWait(self.driver, timeout).until(

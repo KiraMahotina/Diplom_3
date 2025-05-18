@@ -5,7 +5,7 @@ from pages.main_page import MainPage
 from pages.recovery_password_page import RecoveryPasswordPage
 from pages.reset_password_page import ResetPasswordPage
 from urls import Urls
-from data.data import DATA
+from data import DATA
 
 
 class TestRecoveryPassword:
