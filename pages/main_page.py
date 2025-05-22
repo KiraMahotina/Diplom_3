@@ -98,5 +98,4 @@ class MainPage(BasePage):
         self.click_make_order_button()
         self.wait_for_presence_order_id_in_popup()
         order_id = self.get_order_id_in_popup()
-        # Если ID в формате "#0227435", уберите решётку:
         return order_id.lstrip()

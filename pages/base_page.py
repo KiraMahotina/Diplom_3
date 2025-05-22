@@ -1,8 +1,10 @@
 import allure
-from selenium.webdriver.common.by import By
+
 from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 
 class BasePage:
@@ -64,10 +66,20 @@ class BasePage:
     def get_current_url(self):
         return self.driver.current_url
 
-    @allure.step('Создание локатора с использованием извлеченного order_id при создании заказа')
-    def make_order_locator_by_id(self, order_id):
-        return [By.XPATH, f".//p[contains(text(), '{order_id}')]"]
+    @allure.step('Ожидание присутствия элемента по локатору')
+    def wait_for_presence_of_element(self, locator, timeout=10):
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.presence_of_element_located(locator))
+            return True
+        except TimeoutException:
+            return False
 
-    @allure.step('Создание локатора с использованием извлеченного order_id при создании заказа')
-    def make_order_locator_by_id_in_section_orders_in_progress(self, order_id):
-        return [By.XPATH, f".//ul[contains(@class, 'OrderFeed_orderListReady')]//li[contains(., '{order_id}')]"]
+    @allure.step('Ожидание видимости элемента по локатору')
+    def wait_for_visibility_of_element(self, locator, timeout=10):
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator))
+            return True
+        except TimeoutException:
+            return False
